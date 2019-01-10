@@ -87,7 +87,7 @@ export const VerificationResult = ({ files }) => (
                   el.target.setAttribute("title", name);
                 }}
               >
-                {name}
+                {decodeURIComponent(name)}
               </ResultsData>
             </div>
             <div style={{ display: "flex" }}>
@@ -115,7 +115,7 @@ export const VerificationResult = ({ files }) => (
               <ResultsData>
                 <DownloadFileLink
                   data={formatDigestToDownload({
-                    name,
+                    name: decodeURIComponent(name),
                     transaction,
                     date: convertTsToStringDate(chaintimestamp),
                     result: files[i]

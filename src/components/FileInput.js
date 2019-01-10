@@ -11,7 +11,7 @@ const processFiles = files =>
       const reader = new FileReader();
       reader.onload = (f => event => {
         processedFiles.push({
-          name: f.name,
+          name: encodeURIComponent(f.name),
           payload: event.target.result.split(",")[1]
         });
         if (processedFiles.length === files.length) resolve(processedFiles);
@@ -30,7 +30,7 @@ const FilesList = ({ files, onRemoveFile }) => (
         }}
         key={`file-item-${i}`}
       >
-        <span style={{ textAlign: "left" }}>{file.name}</span>
+        <span style={{ textAlign: "left" }}>{decodeURIComponent(file.name)}</span>
         <div>
           <FileItemRemove
             className="material-icons"
