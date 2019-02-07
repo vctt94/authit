@@ -108,12 +108,16 @@ export const VerificationResult = ({ files }) => (
           i
         ) => (
           <ListItem style={{ flexDirection: "column" }}>
-            <div style={{ display: "flex" }}>
-              <ListItemHeader>Anchored Date</ListItemHeader>
-              <ResultsData>
-                {chaintimestamp ? convertTsToStringDate(chaintimestamp) : "-"}
-              </ResultsData>
-            </div>
+          {
+            chaintimestamp ? (
+              <div style={{ display: "flex" }}>
+                <ListItemHeader>Anchored Date</ListItemHeader>
+                <ResultsData>
+                  {convertTsToStringDate(chaintimestamp)}
+                </ResultsData>
+              </div>
+            ) : null
+          }
             <div style={{ display: "flex" }}>
               <ListItemHeader>File</ListItemHeader>
               <ResultsData
@@ -140,26 +144,30 @@ export const VerificationResult = ({ files }) => (
                     <CopyToClipboard text={transaction} />
                   </>
                 ) : (
-                  "not anchored yet"
+                  "Not Anchored Yet"
                 )}
               </ResultsData>
             </div>
-            <div style={{ display: "flex" }}>
-              <ListItemHeader>Download</ListItemHeader>
-              <ResultsData>
-                <DownloadFileLink
-                  data={formatDigestToDownload({
-                    name,
-                    transaction,
-                    date: convertTsToStringDate(chaintimestamp),
-                    result: files[i]
-                  })}
-                  filename={"digest.json"}
-                >
-                  <Button small>Download</Button>
-                </DownloadFileLink>
-              </ResultsData>
-            </div>
+            {
+              chaintimestamp ? (
+                <div style={{ display: "flex" }}>
+                  <ListItemHeader>Download</ListItemHeader>
+                  <ResultsData>
+                    <DownloadFileLink
+                      data={formatDigestToDownload({
+                        name,
+                        transaction,
+                        date: convertTsToStringDate(chaintimestamp),
+                        result: files[i]
+                      })}
+                      filename={"digest.json"}
+                    >
+                      <Button small>Download</Button>
+                    </DownloadFileLink>
+                  </ResultsData>
+                </div>
+              ) : null
+            }            
             <div style={{ display: "flex" }}>
               <ListItemHeader>Result</ListItemHeader>
               <ResultsData>{getHumanReadableResult(result)}</ResultsData>
